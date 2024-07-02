@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OFDFT Pseudopotentials for Elements</title>
+    <style>
+        .container{
+            display: grid;
+            place-items:center;
+        }
+
+        .periodic-table {
+            max-width: fit-content;
+            display: grid;
+            padding-top: 1em;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 10px;
+            font-family: Arial, sans-serif;
+        }
+        .element {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            color: #fff;
+            font-weight: 700;
+            height: 60px;
+            width: 60px;
+            box-shadow: 0 0 10px #fff, 0 0 20px #ccc, 0 0 30px #aaa;
+            border-radius: 9px;
+            text-align: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: padding 100ms ease-in-out 
+        }
+
+        h1{
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 2rem;
+        }
+
+        .element:hover{
+            padding: 6px;
+        }
+        .element a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .H { grid-column: 1 / span 1; grid-row: 1; background-color: #FEB423; }
+        .He { grid-column: 18 / span 1; grid-row: 1; background-color: #FF4958; }
+        .Li { grid-column: 1 / span 1; grid-row: 2; background-color: #A694FE; }
+        .Be { grid-column: 2 / span 1; grid-row: 2; background-color: #B253F7; }
+        .B { grid-column: 13 / span 1; grid-row: 2; background-color: #3277E3; }
+        .C { grid-column: 14 / span 1; grid-row: 2; background-color: #FEB423; }
+        .N { grid-column: 15 / span 1; grid-row: 2; background-color: #FEB423; }
+        .O { grid-column: 16 / span 1; grid-row: 2; background-color: #FEB423; }
+        .F { grid-column: 17 / span 1; grid-row: 2; background-color: #FEB423; }
+        .Ne { grid-column: 18 / span 1; grid-row: 2; background-color: #FF4958; }
+        .Na { grid-column: 1 / span 1; grid-row: 3; background-color: #A694FE; }
+        .Mg { grid-column: 2 / span 1; grid-row: 3; background-color: #B253F7; }
+        .Al { grid-column: 13 / span 1; grid-row: 3; background-color: #44C3D6; }
+        .Si { grid-column: 14 / span 1; grid-row: 3; background-color: #3277E3; }
+        .P { grid-column: 15 / span 1; grid-row: 3; background-color: #FEB423; }
+        .S { grid-column: 16 / span 1; grid-row: 3; background-color: #FEB423; }
+        .Cl { grid-column: 17 / span 1; grid-row: 3; background-color: #FEB423; }
+        .Ar { grid-column: 18 / span 1; grid-row: 3; background-color: #FF4958; }
+        .K { grid-column: 1 / span 1; grid-row: 4; background-color: #A694FE; }
+        .Ca { grid-column: 2 / span 1; grid-row: 4; background-color: #B253F7; }
+        .Sc { grid-column: 3 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Ti { grid-column: 4 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .V { grid-column: 5 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Cr { grid-column: 6 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Mn { grid-column: 7 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Fe { grid-column: 8 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Co { grid-column: 9 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Ni { grid-column: 10 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Cu { grid-column: 11 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Zn { grid-column: 12 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Ga { grid-column: 13 / span 1; grid-row: 4; background-color: #44C3D6; }
+        .Ge { grid-column: 14 / span 1; grid-row: 4; background-color: #3277E3; }
+        .As { grid-column: 15 / span 1; grid-row: 4; background-color: #3277E3; }
+        .Se { grid-column: 16 / span 1; grid-row: 4; background-color: #FEB423; }
+        .Br { grid-column: 17 / span 1; grid-row: 4; background-color: #FEB423; }
+        .Kr { grid-column: 18 / span 1; grid-row: 4; background-color: #FF4958; }
+        .Rb { grid-column: 1 / span 1; grid-row: 5; background-color: #A694FE; }
+        .Sr { grid-column: 2 / span 1; grid-row: 5; background-color: #B253F7; }
+        .Y { grid-column: 3 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Zr { grid-column: 4 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Nb { grid-column: 5 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Mo { grid-column: 6 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Tc { grid-column: 7 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Ru { grid-column: 8 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Rh { grid-column: 9 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Pd { grid-column: 10 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Ag { grid-column: 11 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Cd { grid-column: 12 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .In { grid-column: 13 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Sn { grid-column: 14 / span 1; grid-row: 5; background-color: #44C3D6; }
+        .Sb { grid-column: 15 / span 1; grid-row: 5; background-color: #3277E3; }
+        .Te { grid-column: 16 / span 1; grid-row: 5; background-color: #3277E3; }
+        .I { grid-column: 17 / span 1; grid-row: 5; background-color: #FEB423; }
+        .Xe { grid-column: 18 / span 1; grid-row: 5; background-color: #FF4958; }
+        .Cs { grid-column: 1 / span 1; grid-row: 6; background-color: #A694FE; }
+        .Ba { grid-column: 2 / span 1; grid-row: 6; background-color: #B253F7; }
+        .La { grid-column: 3 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Ce { grid-column: 4 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Pr { grid-column: 5 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Nd { grid-column: 6 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Pm { grid-column: 7 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Sm { grid-column: 8 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Eu { grid-column: 9 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Gd { grid-column: 10 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Tb { grid-column: 11 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Dy { grid-column: 12 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Ho { grid-column: 13 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Er { grid-column: 14 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Tm { grid-column: 15 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Yb { grid-column: 16 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Lu { grid-column: 17 / span 1; grid-row: 9; background-color: #0C9CD8; }
+        .Fr { grid-column: 1 / span 1; grid-row: 7; background-color: #A694FE; }
+        .Ra { grid-column: 2 / span 1; grid-row: 7; background-color: #B253F7; }
+        .Ac { grid-column: 3 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Th { grid-column: 4 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Pa { grid-column: 5 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .U { grid-column: 6 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Np { grid-column: 7 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Pu { grid-column: 8 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Am { grid-column: 9 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Cm { grid-column: 10 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Bk { grid-column: 11 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Cf { grid-column: 12 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Es { grid-column: 13 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Fm { grid-column: 14 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Md { grid-column: 15 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .No { grid-column: 16 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Lr { grid-column: 17 / span 1; grid-row: 10; background-color: #4FCF3B; }
+        .Rf { grid-column: 4 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Db { grid-column: 5 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Sg { grid-column: 6 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Bh { grid-column: 7 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Hs { grid-column: 8 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Mt { grid-column: 9 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Ds { grid-column: 10 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Rg { grid-column: 11 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Cn { grid-column: 12 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Nh { grid-column: 13 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Fl { grid-column: 14 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Mc { grid-column: 15 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Lv { grid-column: 16 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Ts { grid-column: 17 / span 1; grid-row: 7; background-color: #FE8AC6; }
+        .Og { grid-column: 18 / span 1; grid-row: 7; background-color: #FF4958; }
+    </style>
+    
+</head>
+<body>
+    <h1>OFDFT Pseudopotentials for Elements</h1>
+    <div class="container">
+    <div class="container-fliud">
+    <div class="periodic-table">
+        <div class="element H"><a href="https://example.com/elements/H">H</a></div>
+        <div class="element He"><a href="https://example.com/elements/He">He</a></div>
+        <div class="element Li"><a href="https://example.com/elements/Li">Li</a></div>
+        <div class="element Be"><a href="https://example.com/elements/Be">Be</a></div>
+        <div class="element B"><a href="https://example.com/elements/B">B</a></div>
+        <div class="element C"><a href="https://example.com/elements/C">C</a></div>
+        <div class="element N"><a href="https://example.com/elements/N">N</a></div>
+        <div class="element O"><a href="https://example.com/elements/O">O</a></div>
+        <div class="element F"><a href="https://example.com/elements/F">F</a></div>
+        <div class="element Ne"><a href="https://example.com/elements/Ne">Ne</a></div>
+        <div class="element Na"><a href="https://example.com/elements/Na">Na</a></div>
+        <div class="element Mg"><a href="https://example.com/elements/Mg">Mg</a></div>
+        <div class="element Al"><a href="https://example.com/elements/Al">Al</a></div>
+        <div class="element Si"><a href="https://example.com/elements/Si">Si</a></div>
+        <div class="element P"><a href="https://example.com/elements/P">P</a></div>
+        <div class="element S"><a href="https://example.com/elements/S">S</a></div>
+        <div class="element Cl"><a href="https://example.com/elements/Cl">Cl</a></div>
+        <div class="element Ar"><a href="https://example.com/elements/Ar">Ar</a></div>
+        <div class="element K"><a href="https://example.com/elements/K">K</a></div>
+        <div class="element Ca"><a href="https://example.com/elements/Ca">Ca</a></div>
+        <div class="element Sc"><a href="https://drive.google.com/file/d/1lLTatHa_gWbGhctPMQ9mQr1ejYg_Wb85/view?usp=drive_link">Sc</a></div>
+        <div class="element Ti"><a href="https://example.com/elements/Ti">Ti</a></div>
+        <div class="element V"><a href="https://example.com/elements/V">V</a></div>
+        <div class="element Cr"><a href="https://example.com/elements/Cr">Cr</a></div>
+        <div class="element Mn"><a href="https://example.com/elements/Mn">Mn</a></div>
+        <div class="element Fe"><a href="https://example.com/elements/Fe">Fe</a></div>
+        <div class="element Co"><a href="https://example.com/elements/Co">Co</a></div>
+        <div class="element Ni"><a href="https://example.com/elements/Ni">Ni</a></div>
+        <div class="element Cu"><a href="https://drive.google.com/file/d/1CEprax8NO8eq3zavqVx6rLblroiEOWMF/view?usp=drive_link">Cu</a></div>
+        <div class="element Zn"><a href="https://example.com/elements/Zn">Zn</a></div>
+        <div class="element Ga"><a href="https://example.com/elements/Ga">Ga</a></div>
+        <div class="element Ge"><a href="https://example.com/elements/Ge">Ge</a></div>
+        <div class="element As"><a href="https://example.com/elements/As">As</a></div>
+        <div class="element Se"><a href="https://example.com/elements/Se">Se</a></div>
+        <div class="element Br"><a href="https://example.com/elements/Br">Br</a></div>
+        <div class="element Kr"><a href="https://example.com/elements/Kr">Kr</a></div>
+        <div class="element Rb"><a href="https://example.com/elements/Rb">Rb</a></div>
+        <div class="element Sr"><a href="https://example.com/elements/Sr">Sr</a></div>
+        <div class="element Y"><a href="https://example.com/elements/Y">Y</a></div>
+        <div class="element Zr"><a href="https://example.com/elements/Zr">Zr</a></div>
+        <div class="element Nb"><a href="https://example.com/elements/Nb">Nb</a></div>
+        <div class="element Mo"><a href="https://example.com/elements/Mo">Mo</a></div>
+        <div class="element Tc"><a href="https://example.com/elements/Tc">Tc</a></div>
+        <div class="element Ru"><a href="https://example.com/elements/Ru">Ru</a></div>
+        <div class="element Rh"><a href="https://example.com/elements/Rh">Rh</a></div>
+        <div class="element Pd"><a href="https://example.com/elements/Pd">Pd</a></div>
+        <div class="element Ag"><a href="https://drive.google.com/file/d/1yn319I8KvvhQsLvRVUZHnbwsoUe--ibU/view?usp=drive_link">Ag</a></div>
+        <div class="element Cd"><a href="https://example.com/elements/Cd">Cd</a></div>
+        <div class="element In"><a href="https://example.com/elements/In">In</a></div>
+        <div class="element Sn"><a href="https://example.com/elements/Sn">Sn</a></div>
+        <div class="element Sb"><a href="https://example.com/elements/Sb">Sb</a></div>
+        <div class="element Te"><a href="https://example.com/elements/Te">Te</a></div>
+        <div class="element I"><a href="https://example.com/elements/I">I</a></div>
+        <div class="element Xe"><a href="https://example.com/elements/Xe">Xe</a></div>
+        <div class="element Cs"><a href="https://example.com/elements/Cs">Cs</a></div>
+        <div class="element Ba"><a href="https://example.com/elements/Ba">Ba</a></div>
+        <div class="element La"><a href="https://example.com/elements/La">La</a></div>
+        <div class="element Ce"><a href="https://example.com/elements/Ce">Ce</a></div>
+        <div class="element Pr"><a href="https://example.com/elements/Pr">Pr</a></div>
+        <div class="element Nd"><a href="https://example.com/elements/Nd">Nd</a></div>
+        <div class="element Pm"><a href="https://example.com/elements/Pm">Pm</a></div>
+        <div class="element Sm"><a href="https://example.com/elements/Sm">Sm</a></div>
+        <div class="element Eu"><a href="https://example.com/elements/Eu">Eu</a></div>
+        <div class="element Gd"><a href="https://example.com/elements/Gd">Gd</a></div>
+        <div class="element Tb"><a href="https://example.com/elements/Tb">Tb</a></div>
+        <div class="element Dy"><a href="https://example.com/elements/Dy">Dy</a></div>
+        <div class="element Ho"><a href="https://example.com/elements/Ho">Ho</a></div>
+        <div class="element Er"><a href="https://example.com/elements/Er">Er</a></div>
+        <div class="element Tm"><a href="https://example.com/elements/Tm">Tm</a></div>
+        <div class="element Yb"><a href="https://example.com/elements/Yb">Yb</a></div>
+        <div class="element Lu"><a href="https://example.com/elements/Lu">Lu</a></div>
+        <div class="element Fr"><a href="https://example.com/elements/Fr">Fr</a></div>
+        <div class="element Ra"><a href="https://example.com/elements/Ra">Ra</a></div>
+        <div class="element Ac"><a href="https://example.com/elements/Ac">Ac</a></div>
+        <div class="element Th"><a href="https://example.com/elements/Th">Th</a></div>
+        <div class="element Pa"><a href="https://example.com/elements/Pa">Pa</a></div>
+        <div class="element U"><a href="https://example.com/elements/U">U</a></div>
+        <div class="element Np"><a href="https://example.com/elements/Np">Np</a></div>
+        <div class="element Pu"><a href="https://example.com/elements/Pu">Pu</a></div>
+        <div class="element Am"><a href="https://example.com/elements/Am">Am</a></div>
+        <div class="element Cm"><a href="https://example.com/elements/Cm">Cm</a></div>
+        <div class="element Bk"><a href="https://example.com/elements/Bk">Bk</a></div>
+        <div class="element Cf"><a href="https://example.com/elements/Cf">Cf</a></div>
+        <div class="element Es"><a href="https://example.com/elements/Es">Es</a></div>
+        <div class="element Fm"><a href="https://example.com/elements/Fm">Fm</a></div>
+        <div class="element Md"><a href="https://example.com/elements/Md">Md</a></div>
+        <div class="element No"><a href="https://example.com/elements/No">No</a></div>
+        <div class="element Lr"><a href="https://example.com/elements/Lr">Lr</a></div>
+        <div class="element Rf"><a href="https://example.com/elements/Rf">Rf</a></div>
+        <div class="element Db"><a href="https://example.com/elements/Db">Db</a></div>
+        <div class="element Sg"><a href="https://example.com/elements/Sg">Sg</a></div>
+        <div class="element Bh"><a href="https://example.com/elements/Bh">Bh</a></div>
+        <div class="element Hs"><a href="https://example.com/elements/Hs">Hs</a></div>
+        <div class="element Mt"><a href="https://example.com/elements/Mt">Mt</a></div>
+        <div class="element Ds"><a href="https://example.com/elements/Ds">Ds</a></div>
+        <div class="element Rg"><a href="https://example.com/elements/Rg">Rg</a></div>
+        <div class="element Cn"><a href="https://example.com/elements/Cn">Cn</a></div>
+        <div class="element Nh"><a href="https://example.com/elements/Nh">Nh</a></div>
+        <div class="element Fl"><a href="https://example.com/elements/Fl">Fl</a></div>
+        <div class="element Mc"><a href="https://example.com/elements/Mc">Mc</a></div>
+        <div class="element Lv"><a href="https://example.com/elements/Lv">Lv</a></div>
+        <div class="element Ts"><a href="https://example.com/elements/Ts">Ts</a></div>
+        <div class="element Og"><a href="https://example.com/elements/Og">Og</a></div>
+    </div>
+    </div>
+</div>
+</body>
+</html>
