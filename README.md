@@ -31,8 +31,8 @@ Files follow `<Element>_<variant>_<reference>.psp8`:
 | `psl` | targets the PSLibrary reference set |
 | `bcc` | fitted against the bcc phase |
 
-Elements covered include Ag, Au, Cd, Co, Cr, Cu, Hf, Hg, Mo, Nb, Ni, P, Pd, Rh, Ta,
-Ti, V, W, Zn and Zr — see `PP_1/PP_1/` for the full set.
+Elements covered (24 in total): Ag, Au, Cd, Co, Cr, Cu, Hf, Hg, Mo, Nb, Ni, Pd, Pt,
+Re, Rh, Sc, Ta, Tc, Ti, V, W, Y, Zn, Zr.
 
 ## Usage
 
